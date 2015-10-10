@@ -19,7 +19,7 @@ client = ImgurClient(client_id,client_secret)
 def topng(path,width=WIDTH,save_path='tmp.png'):
   '''Turns a binary into a nice png'''
   # Get data from binary file
-  binary_array = np.fromfile(path,dtype=uint8)
+  binary_array = np.fromfile(path,dtype='uint8')
 
   # find file size
   size_array = np.array([binary_array.shape[0]%255,binary_array.shape[0]/255%255,\
