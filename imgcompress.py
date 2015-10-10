@@ -31,13 +31,20 @@ def topng(path,width=WIDTH,save_path='tmp.png'):
   # Find the height of image and add padding
   data_size = binary_array.shape[0]
   height = data_size/width
-  pad = data_size%width
-  if pad != 0:
+  pad = width-data_size%width
+  
+  if pad%width != 0:
     height += 1
-  binary_array = np.concatenate((binary_array,np.array([0]*pad)),axis=0)
+    binary_array = np.concatenate((binary_array,np.array([0]*pad)),axis=0)
+
+  assert(width*height==binary_array.shape[0])
 
   # Make the matrix of pixels
   dat = binary_array.reshape(height,width)
+  dat.dtype = 'uint8'
+
+  print dat
+  print dat.dtype
   
   image = Image.fromarray(dat)
   image.save(save_path)
