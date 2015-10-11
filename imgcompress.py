@@ -9,8 +9,8 @@ from PIL import Image
 import argparse
 
 WIDTH = 720*3
-ONETRUEGOD = np.array(Image.open('onetruegod.png'),dtype='uint8')
-OTG_HEIGHT = ONETRUEGOD.shape[0]
+# ONETRUEGOD = np.array(Image.open('onetruegod.png'),dtype='uint8')
+# OTG_HEIGHT = ONETRUEGOD.shape[0]
 
 REP = 1
 
