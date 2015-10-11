@@ -25,3 +25,7 @@ To compress:
 To decompress:
 
     python imgcompress.py -d <.IMGC FILE> -t <DEST>
+
+## Inspiration
+
+Inspired by the [WPEG Compression Algorithm](http://www.dangermouse.net/esoteric/wpeg.html).
