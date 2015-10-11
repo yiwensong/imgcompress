@@ -101,9 +101,9 @@ def topng(path,width=WIDTH,save_path='tmp.png',mode='RGB'):
   # print dat.shape
   # print dat.dtype
   
-  gods_needed = height/OTG_HEIGHT
-  if gods_needed > 0:
-    god = np.concatenate([ONETRUEGOD]*gods_needed,axis=0)
+  # gods_needed = height/OTG_HEIGHT
+  # if gods_needed > 0:
+  #   god = np.concatenate([ONETRUEGOD]*gods_needed,axis=0)
 
   image = Image.fromarray(dat,mode=mode)
   # image = image.convert('RGB')
