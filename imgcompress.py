@@ -180,7 +180,7 @@ def main():
 
   if args.decompress is not None:
     path = args.decompress
-    compress(path,args.dest)
+    decompress(path,args.dest)
 
 
 if __name__ == '__main__':
