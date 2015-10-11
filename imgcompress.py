@@ -7,6 +7,7 @@ import numpy as np
 import urllib
 from PIL import Image
 import argparse
+import os
 
 WIDTH = 720*3
 # ONETRUEGOD = np.array(Image.open('onetruegod.png'),dtype='uint8')
@@ -32,7 +33,7 @@ def add_zeros(array,rep=REP):
 def rm_zeros(array,rep=REP):
   return np.array([array[i] for i in range(0,array.shape[0],rep)],dtype='uint8')
 
-def topng(path,width=WIDTH,save_path='tmp.png',mode='RGB'):
+def topng(path,width=WIDTH,save_path='.tmp.png',mode='RGB'):
   '''Turns a binary into a nice png'''
 
   dt = 'uint8'
@@ -65,7 +66,7 @@ def topng(path,width=WIDTH,save_path='tmp.png',mode='RGB'):
   height = data_size/width
   pad = width-data_size%width
 
-  print size_array, data_size, sz
+  # print size_array, data_size, sz
   
   if pad%width != 0:
     height += 1
@@ -89,9 +90,9 @@ def topng(path,width=WIDTH,save_path='tmp.png',mode='RGB'):
     padding = binary_array[:pad]
   binary_array = np.concatenate((binary_array,padding),axis=0)
 
-  print 'pad',pad
-  print height,width,height*width
-  print len(binary_array)
+  # print 'pad',pad
+  # print height,width,height*width
+  # print len(binary_array)
 
   assert(width*height==binary_array.shape[0])
 
@@ -112,6 +113,8 @@ def topng(path,width=WIDTH,save_path='tmp.png',mode='RGB'):
   # image = image.convert('RGB')
   image.save(save_path)
 
+  print 'Compression is done. Your compression ratio today was:',data_size/7.0
+
   return save_path
 
 def frompng(png,save_path='BINARY'):
@@ -123,12 +126,14 @@ def frompng(png,save_path='BINARY'):
   for i in range(4):
     size += binary_array[i]*256**i
 
-  print binary_array[0],binary_array[1],binary_array[2],binary_array[3]
-  print size
+  # print binary_array[0],binary_array[1],binary_array[2],binary_array[3]
+  # print size
 
   binary_array = binary_array[4:4+size]
 
   binary_array.tofile(save_path)
+
+  print 'Decompression is done. You\'re wasting space on your disk now.'
 
   return save_path
 
@@ -146,17 +151,17 @@ def download(enc,loc):
 def decompress(path,decomp_path):
   f = open(path,'r')
   link = f.read()[:7]
-  png = download(link,'tmp')
+  png = download(link,'.temp.png')
   frompng(png,decomp_path)
-  # TODO: cleanup the tmp file
+  os.remove('.temp.png')
 
 def compress(path,comp_path=None):
   if comp_path is None:
     comp_path = path + '.imgc'
   comp_fd = open(comp_path,'w')
   tmp_file = topng(path)
-  # TODO: Cleanup tmp_file
   cb = client.upload_from_path(tmp_file)
+  os.remove(tmp_file)
   comp_fd.write(str(cb[u'id']))
   comp_fd.close()
 
