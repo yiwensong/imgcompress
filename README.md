@@ -12,6 +12,9 @@ The future is here, Web 3.0 enabled, Python 2.7 running, Big Data storing, Analy
 To install Imgur API, simply do:  
 
     pip install imgurpython
+
+You must also register the application yourself [here](https://api.imgur.com/oauth2/addclient). 
+When you get your key and secret, replace the first and second line of secret.secret with your key and secret, respectively. 
   
 ## Usage
 
