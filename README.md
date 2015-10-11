@@ -11,14 +11,14 @@ The future is here, Web 3.0 enabled, Python 2.7 running, Big Data storing, Analy
 
 To install Imgur API, simply do:  
 
-  pip install imgurpython
+    pip install imgurpython
   
 ## Usage
 
 To compress:
 
-  python imgcompress.py -c <FILE> -t <DEST>
+    python imgcompress.py -c <FILE> -t <DEST>
   
 To decompress:
 
-  python imgcompress.py -d <.IMGC FILE> -t <DEST>
+    python imgcompress.py -d <.IMGC FILE> -t <DEST>
