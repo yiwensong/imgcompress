@@ -2,6 +2,8 @@
 
 ### Modern compression for the modern aesthete. (現代壓縮 4 2 0 為現代 э с т е т а .)
 
+####[\# S A D B O Y S](http://instagram.com/ineverwin)
+
 Using advanced algorithms technology, we have created a compression algorithm that has a local compression ratio of 
 over 700 000. 
 The future is here, Web 3.0 enabled, Python 2.7 running, Big Data storing, Analytics enhancing, cutting edge technology.
@@ -29,11 +31,6 @@ To decompress:
     python imgcompress.py -d <.IMGC FILE> -t <DEST>
 
 ________
-
-###Modern compression for the modern aesthete. (現代壓縮 4 2 0 為現代 э с т е т а .)
-
-Using advanced algorithms technology, we have created a compression algorithm that has a local compression ratio of over 700 000. The future is here, Web 3.0 enabled, Python 2.7 running, Big Data storing, Analytics enhancing, cutting edge technology.  
-####[\# S A D B O Y S](http://instagram.com/ineverwin)
 
 ## Inspiration
 
