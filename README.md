@@ -1,6 +1,6 @@
 # imgcompress - 現代の圧縮 ( 美 学 A E S T H E T I C S )
 
-Modern compression for the modern aesthete. (現代壓縮 4 2 0 為現代 э с т е т а .)
+### Modern compression for the modern aesthete. (現代壓縮 4 2 0 為現代 э с т е т а .)
 
 Using advanced algorithms technology, we have created a compression algorithm that has a local compression ratio of 
 over 700 000. 
