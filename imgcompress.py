@@ -83,12 +83,15 @@ def topng(path,width=WIDTH,save_path='tmp.png',mode='RGB'):
     print 'Unsupported mode'
     return None
 
-  padding = binary_array[:pad]
+  if binary_array.shape[0] < pad:
+    padding = np.concatenate([binary_array]*(pad/binary_array.shape[0]+1),axis=0)[:pad]
+  else:
+    padding = binary_array[:pad]
   binary_array = np.concatenate((binary_array,padding),axis=0)
 
-  # print 'pad',pad
-  # print height,width,height*width
-  # print len(binary_array)
+  print 'pad',pad
+  print height,width,height*width
+  print len(binary_array)
 
   assert(width*height==binary_array.shape[0])
 
