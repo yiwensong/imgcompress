@@ -10,14 +10,14 @@ import argparse
 import os
 
 WIDTH = 720*3
+
 # Imgur compresses images over 5 MB
 MAX_FILE_SIZE = 5*1000**2
 
 # Size of imgur's encoding
 ENC_LEN = 7
 
-REP = 1
-
+# Initialize the client
 try:
   try:
     sec = open('SECRET','r')
@@ -30,17 +30,6 @@ try:
   client = ImgurClient(client_id,client_secret)
 except:
   pass
-  
-def add_zeros(array,rep=REP):
-  if rep<=1:
-    return array
-  new_arr = np.array([0]*array.shape[0]*rep,dtype='uint8')
-  for i in range(array.shape[0]):
-    new_arr[i*rep+1] = array[i]
-  return new_arr
-
-def rm_zeros(array,rep=REP):
-  return np.array([array[i] for i in range(0,array.shape[0],rep)],dtype='uint8')
 
 def topng_helper(binary_array,width,save_path,mode):
   '''Helps turn binaries into nice pngs'''
@@ -87,7 +76,6 @@ def topng_helper(binary_array,width,save_path,mode):
   image.save(save_path)
   return save_path
 
-
 def topng(path,width=WIDTH,save_path='.tmp.png',mode='RGB'):
   '''Turns a binary into a nice png'''
 
@@ -96,9 +84,6 @@ def topng(path,width=WIDTH,save_path='.tmp.png',mode='RGB'):
   # Get data from binary file
   binary_array = np.fromfile(path,dtype=dt)
   binary_array.dtype = 'uint8'
-
-  # Used to sparse out data for onetruegod
-  binary_array = add_zeros(binary_array)
 
   size = binary_array.shape[0]
 
@@ -171,7 +156,10 @@ def main():
   parser = argparse.ArgumentParser( \
       prog='imgcompress.py', \
       description='''This is the highest average compression ratio compression algorithm available.
-        And it's FREE.''')
+        And it's FREE.
+        
+        Make sure you have your Imgur API secret saved in 'secret.secret'. For more info:
+            https://api.imgur.com/oauth2/addclient''')
 
   parser.add_argument('-c','--compress',required=False,help='follow with file name to compress')
   parser.add_argument('-d','--decompress',required=False,help='follow with file name to decompress')
