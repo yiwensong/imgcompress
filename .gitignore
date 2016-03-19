@@ -1,2 +1,5 @@
-*.secret
+secret.secret
+.cleanup
 *.zip
+.*.swp
+SECRET

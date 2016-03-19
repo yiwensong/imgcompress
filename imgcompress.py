@@ -19,7 +19,10 @@ ENC_LEN = 7
 REP = 1
 
 try:
-  sec = open('secret.secret','r')
+  try:
+    sec = open('SECRET','r')
+  except IOError:
+    sec = open('secret.secret','r')
   newline_filter = lambda c: False if c=='\n' or c=='\r' else True
   client_id = filter(newline_filter,sec.readline())
   client_secret = filter(newline_filter,sec.readline())
