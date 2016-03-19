@@ -112,7 +112,7 @@ def topng(path,width=WIDTH,save_path='.tmp.png',mode='RGB'):
     if comp_size < size:
       binary_array = binary_array[MAX_FILE_SIZE:]
 
-  print 'Compression is done. Your compression ratio today was:',size/(8.0 * comp_size/MAX_FILE_SIZE)
+  print 'Compression is done. Your compression ratio today was:',size/(7.0 * comp_size/MAX_FILE_SIZE)
   return ret_path
 
 def frompng(png,save_path='BINARY'):
@@ -150,10 +150,12 @@ def download(enc,loc):
 def decompress(path,decomp_path):
   with open(path,'r') as f:
     for line in f:
-      link = line[:7]
-      png = download(link,'.temp.png')
-      frompng(png,decomp_path)
-      os.remove('.temp.png')
+      while line != '':
+        link = line[:7]
+        png = download(link,'.temp.png')
+        frompng(png,decomp_path)
+        os.remove('.temp.png')
+        line = line[:7]
 
 def compress(path,comp_path=None):
   if comp_path is None:
@@ -163,7 +165,7 @@ def compress(path,comp_path=None):
     for tmp_file in tmp_files:
       cb = client.upload_from_path(tmp_file)
       os.remove(tmp_file)
-      comp_fd.write(str(cb[u'id'])+'\n')
+      comp_fd.write(str(cb[u'id']))
 
 def main():
   parser = argparse.ArgumentParser( \
