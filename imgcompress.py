@@ -218,7 +218,7 @@ def main():
     return
 
   if args.compress is not None:
-    if args.noauth:
+    if args.auth:
       loggedin = login(client)
 
     path = args.compress
