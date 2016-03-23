@@ -3,3 +3,4 @@ secret.secret
 *.zip
 .*.swp
 SECRET
+test*

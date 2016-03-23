@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from imgurpython import ImgurClient
 from imgurpython.helpers.error import ImgurClientError
 import numpy as np
@@ -12,7 +13,8 @@ import os
 WIDTH = 720*3
 
 # Imgur compresses images over 5 MB
-MAX_FILE_SIZE = 5*1000**2
+# But 1 MB for anonymous QQ
+MAX_FILE_SIZE = 1*1000**2
 
 # Size of imgur's encoding
 ENC_LEN = 7
@@ -97,14 +99,18 @@ def topng(path,width=WIDTH,save_path='.tmp.png',mode='RGB'):
     if comp_size < size:
       binary_array = binary_array[MAX_FILE_SIZE:]
 
-  print 'Compression is done. Your compression ratio today was:',size/(7.0 * comp_size/MAX_FILE_SIZE)
+  print 'Compression is done. Your compression ratio today was:',size/(7.0 * (comp_size+MAX_FILE_SIZE-1)/MAX_FILE_SIZE)
   return ret_path
 
 def frompng(png,save_path='BINARY'):
   '''Takes a png file and takes out the binary shit'''
-  img = Image.open(png)
-  binary_array = np.array(img,dtype='uint8').reshape(-1,)
+  try:
+    img = Image.open(png)
+  except AttributeError as e:
+    print 'Did not find a valid Imgur image!'
+    raise e
 
+  binary_array = np.array(img,dtype='uint8').reshape(-1,)
   size = 0
   for i in range(4):
     size += binary_array[i]*256**i
@@ -140,12 +146,12 @@ def decompress(path,decomp_path):
         png = download(link,'.temp.png')
         frompng(png,decomp_path)
         os.remove('.temp.png')
-        line = line[:7]
+        line = line[7:]
 
 def compress(path,comp_path=None):
   if comp_path is None:
     comp_path = path + '.imgc'
-  with open(comp_path,'w') as compfd:
+  with open(comp_path,'w') as comp_fd:
     tmp_files = topng(path)
     for tmp_file in tmp_files:
       cb = client.upload_from_path(tmp_file)
@@ -167,6 +173,9 @@ def main():
   
   args = parser.parse_args()
 
+  # Make empty file/empty out existing file
+  open(args.dest,'w').close()
+
   if args.compress is None and args.decompress is None:
     parser.print_help()
     return
@@ -179,7 +188,6 @@ def main():
   if args.decompress is not None:
     path = args.decompress
     decompress(path,args.dest)
-
 
 if __name__ == '__main__':
   main()
