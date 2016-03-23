@@ -9,6 +9,7 @@ import urllib
 from PIL import Image
 import argparse
 import os
+import requests
 
 WIDTH = 720*3
 
@@ -18,6 +19,9 @@ MAX_FILE_SIZE = 1*1000**2
 
 # Size of imgur's encoding
 ENC_LEN = 7
+
+# Requests URL
+TOKEN_URL = 'https://api.imgur.com/oauth2/token'
 
 # Initialize the client
 try:
@@ -32,6 +36,38 @@ try:
   client = ImgurClient(client_id,client_secret)
 except:
   pass
+
+def login(client):
+  '''Uses pin login to log a client in'''
+  try:
+    with open('.imgcompress.user_session.sav','r') as f:
+      access_token = filter(newline_filter,f.readline())
+      refresh_token = filter(newline_filter,f.readline())
+    client.set_user_auth(access_token,refresh_token)
+    try:
+      client.auth.refresh()
+    except ImgurClientError:
+      raise IOError
+    with open('.imgcompress.user_session.sav','w') as f:
+      f.write(client.auth.get_current_access_token() + '\n' + client.auth.refresh_token)
+  except IOError:
+    print 'Please go to https://api.imgur.com/oauth2/authorize?client_id=' + client_id + \
+        '&response_type=pin&state=none and sign in with your imgur account!'
+    pin = raw_input('Pin: ')
+    data = {'client_id':client_id,'client_secret':client_secret,'grant_type':'pin','pin':pin}
+    response = requests.post(TOKEN_URL,data=data)
+    try:
+      access_token = response.json()['access_token']
+      refresh_token = response.json()['refresh_token']
+      client.set_user_auth(access_token,refresh_token)
+      with open('.imgcompress.user_session.sav','w') as f:
+        f.write(access_token + '\n' + refresh_token)
+    except:
+      print 'Log in failed! Continuing as anonymous user (Compression ratio may be affected.)'
+      return False
+  global MAX_FILE_SIZE
+  MAX_FILE_SIZE = 5*1000**2
+  return True
 
 def topng_helper(binary_array,width,save_path,mode):
   '''Helps turn binaries into nice pngs'''
@@ -154,7 +190,7 @@ def compress(path,comp_path=None):
   with open(comp_path,'w') as comp_fd:
     tmp_files = topng(path)
     for tmp_file in tmp_files:
-      cb = client.upload_from_path(tmp_file)
+      cb = client.upload_from_path(tmp_file,anon=False)
       os.remove(tmp_file)
       comp_fd.write(str(cb[u'id']))
 
@@ -170,6 +206,7 @@ def main():
   parser.add_argument('-c','--compress',required=False,help='follow with file name to compress')
   parser.add_argument('-d','--decompress',required=False,help='follow with file name to decompress')
   parser.add_argument('-t','--dest',required=True,help='specify where you want to store the file')
+  parser.add_argument('-a','--auth',help='specify where you want to store the file',action='store_true',default=False)
   
   args = parser.parse_args()
 
@@ -181,6 +218,9 @@ def main():
     return
 
   if args.compress is not None:
+    if args.noauth:
+      loggedin = login(client)
+
     path = args.compress
     compress(path,args.dest)
     return

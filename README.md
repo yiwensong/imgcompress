@@ -5,7 +5,7 @@
 ####[\# S A D B O Y S](http://instagram.com/ineverwin)
 
 Using advanced algorithms technology, we have created a compression algorithm that has a local compression ratio of 
-over 140 000. 
+over 700 000. 
 The future is here, Web 3.0 enabled, Python 2.7 running, Big Data storing, Analytics enhancing, cutting edge technology.
 
 ## Requirements  
@@ -39,7 +39,7 @@ ________
 
 ## What it does
 
-**現代の圧縮 ( 美 学 A E S T H E T I C S )** turns any file under 5MB into a file of just 7 bytes. This compression ratio is well over 140 000, which is significantly higher than any other popular compression algorithm available today. Using **現代の圧縮 ( 美 学 A E S T H E T I C S )**, we can expect an increased efficiency in Big Data storage as well as new, cutting-edge techniques in Data Analytics.  
+**現代の圧縮 ( 美 学 A E S T H E T I C S )** turns any file under 5MB into a file of just 7 bytes. This compression ratio is well over 700 000, which is significantly higher than any other popular compression algorithm available today. Using **現代の圧縮 ( 美 学 A E S T H E T I C S )**, we can expect an increased efficiency in Big Data storage as well as new, cutting-edge techniques in Data Analytics.  
 
 **現代の圧縮 ( 美 学 A E S T H E T I C S )** uses the ポストアルゴリズムのプログラミングプラグマ (post-algorithmic programming pragma), the deconstruction of the use of complex algorithms to increase the compression ratios of large files. Instead, we took an 盒子外面 (out-of-the-box) solution that incorporates the cutting-edge technology of the Imgur API and the losslessness property of files under 5MB uploaded to Imgur. Thus, we simply upload *any* file in 5MB chunks encoded as PNG files *( 美 学 A E S T H E T I C S )* and store these as 7 bit characters which are the URLs of these images as Imgur gives them. Treating Imgur as a 無限のストレージボックス (infinity storage box), we can compress any large file with a compression ratio of nearly one million.   
 ####[\# V A P O R W A V E](http://instagram.com/ineverwin)

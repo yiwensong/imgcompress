@@ -4,3 +4,4 @@ secret.secret
 .*.swp
 SECRET
 test*
+.imgcompress.user_session.sav
