@@ -150,16 +150,9 @@ def frompng(png,save_path='BINARY'):
   size = 0
   for i in range(4):
     size += binary_array[i]*256**i
-
-  # print binary_array[0],binary_array[1],binary_array[2],binary_array[3]
-  # print size
-
   binary_array = binary_array[4:4+size]
-  
   with open(save_path,'a') as f:
     f.write(binary_array.tostring())
-
-  print 'Decompression is done. You\'re wasting space on your disk now.'
 
   return save_path
 
@@ -183,6 +176,7 @@ def decompress(path,decomp_path):
         frompng(png,decomp_path)
         os.remove('.temp.png')
         line = line[7:]
+  print 'Decompression is done. You\'re wasting space on your disk now.'
 
 def compress(path,comp_path=None):
   if comp_path is None:
