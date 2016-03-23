@@ -30,6 +30,10 @@ To decompress:
 
     python imgcompress.py -d <.IMGC FILE> -t <DEST>
 
+For maximum compression ratio, you must log in. This is done manually through a web browser once in a while. This option is disabled by default. To enable this option, simply use the following flag:
+
+    python imgcompress.py -c <FILE> -t <DEST> -a
+
 ________
 
 ## Inspiration
